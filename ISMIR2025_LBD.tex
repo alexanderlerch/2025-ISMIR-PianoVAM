@@ -1,0 +1,186 @@
+% -----------------------------------------------
+% Template for ISMIR Papers
+% 2025 version, based on previous ISMIR templates
+
+% Requirements :
+% * 6+n page length maximum
+% * 10MB maximum file size
+% * Copyright note must appear in the bottom left corner of first page
+% * Clearer statement about citing own work in anonymized submission
+% (see conference website for additional details)
+% -----------------------------------------------
+
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ismir} % Remove the "submission" option for camera-ready version
+\usepackage{amsmath,cite,url}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+% \crefformat{footnote}{#2\footnotemark[#1]#3}
+
+\usepackage{algorithm} % Added
+\usepackage{algpseudocode} % Added
+\usepackage{gensymb} % Added
+\usepackage{siunitx} % Added
+\usepackage{multirow} % Added
+\usepackage{siunitx} % Added
+\sisetup{input-symbols = ()} % Added
+\usepackage{kotex}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{microtype} % Added
+\usepackage{paralist} % Added
+\usepackage{float} % added
+
+\newcommand{\alex}[1]{\textcolor{blue}{#1}}%
+\newcommand{\jh}[1]{\textcolor{red}{#1}}
+
+% Title. Please use IEEE-compliant title case when specifying the title here,
+% as it has implications for the copyright notice
+% ------
+\title{Two Graphical User Interfaces for extending PianoVAM} %가제...
+
+% Note: Please do NOT use \thanks or a \footnote in any of the author markup
+
+% Single address
+% To use with only one author or several with the same address
+% ---------------
+\multauthor
+  {Junhyung Park$^\flat$ \hspace{1cm} Yonghyun Kim$^\natural$ \hspace{1cm}  Joonhyung Bae$^\sharp$ \hspace{1cm} Kirak Kim$^\sharp$}
+  {{\bf Taegyun Kwon$^\sharp$ \hspace{1cm} Alexander Lerch$^\natural$ \hspace{1cm} Juhan Nam$^\sharp$}\\
+  $^\flat$ Department of Mathematical Sciences, KAIST, South Korea\\
+  $^\natural$ Music Informatics Group, Georgia Institute of Technology, USA\\
+  $^\sharp$ Graduate School of Culture Technology, KAIST, South Korea\\
+  {\tt\small \{yonghyun.kim, alexander.lerch\}@gatech.edu,\\
+  \tt\small \{tonyishappy, jh.bae, kirak, ilcobo2, juhan.nam\}@kaist.ac.kr}
+  }
+
+% For the author list in the Creative Common license, please enter author names.
+% Please abbreviate the first names of authors and add 'and' between the second to last and last authors.
+\def\authorname{J. Park, Y.Kim, J. Bae, T. Kwon, K. Kim, A. Lerch and J. Nam}
+
+% Two addresses
+% --------------
+%\twoauthors
+%   {First author} {School \\ Department}
+%   {Second author} {Company \\ Address}
+
+% Three addresses
+% --------------
+% \threeauthors
+%   {First Author} {Affiliation 1 \\ \texttt{author1@ismir.edu}}
+%   {Second Author} {Affiliation 2 \\ \texttt{author2@ismir.edu}}
+%   {Third Author} {Affiliation 3 \\ \texttt{author3@ismir.edu}}
+
+% Four or more addresses
+% OR alternative format for large number of co-authors
+% ------------
+% \multauthor
+%   {First author$^1$ \hspace{1cm} Second author$^1$ \hspace{1cm} Third author$^2$}
+%   {{\bf Fourth author$^3$ \hspace{1cm} Fifth author$^2$ \hspace{1cm} Sixth author$^1$}\\
+%   $^1$ Department of Computer Science, University, Country\\
+%   $^2$ International Laboratories, City, Country\\
+%   $^3$ Company, Address\\
+%   {\tt\small CorrespondenceAuthor@ismir.edu, PossibleOtherAuthor@ismir.edu}
+%   }
+
+% For the author list in the Creative Common license, please enter author names.
+% Please abbreviate the first names of authors and add 'and' between the second to last and last authors.
+
+\sloppy % please retain sloppy command for improved formatting
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The abstract should be placed at the top left column and should contain about 150--200 words.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+It requires many procedures to acquire audiovisual piano performing data, such as syncing audio and video files, recording metadata, and unifying all different recording settings. \\%Audiovisual piano performance dataset 관련 문단
+PiaRec merges every preparation step into a simple button click and unifies recording environment, which extensively enhances PianoVAM's extendability.\\ %PiaRec 관련 문단
+Piano is a unique instrument which requires the player to use all 10 fingers to polyphony. %Fingering Dataset 관련 문단
+%ASDF 관련 문단
+
+
+\section{Tool for Data Acquisition} % 이 부분 목차는 제가 임의로 작성해 봤어요! -small 준형
+\subsection{Interface (QR Code login, etc...)} 
+\subsection{Sync, metadata, face blur,...}
+\section{Tool for Fingering Annotation}
+\subsection{Interface (esp. Keyboard area detection, image undistortion)}
+
+In order to synchronize the location of the finger and keyboard to annotate the fingering number, specifying the exact location of the keyboard and the lens distortion of frame image must take place before the annotation. 
+
+\subsection{Algorithm \& Hyperparameters}
+% \begin{algorithm}[h]
+% \caption{Fingering Candidate Selection Algorithm}\label{alg:cap}
+% \begin{algorithmic}
+% \State $N = \text{Total number of notes}$
+% \State $K(n) = \text{Keyboard area of $n$th note}$
+% \State $R(n) = \text{Ranger to e of frames of $n$th note played}$
+% \State $H(f,i) = i\text{th Finger location info of frame $f$,} $ but fingers of floating hands are not contained
+% \State $w = \text{width of a key}$ 
+% \For{$n < N$}
+% \State $S_n \gets (0,0,\cdots, 0)$ \Comment{Score of each finger likely playing $n$th note}
+% \For{$f \in R(n)$}
+% \For{$i<10$}
+% \If{\text{each }$H(f,i) \in K(n)$}
+% \State $S_n\gets S_n + \chi_i$ \Comment{$\chi_i$ = $i$th unit vector}
+% \ElsIf{$0<||H(f,i),K(n)||_{\mathbb{R}^2}< w$}
+% \State $S_n \gets S_n + \left(\frac{1-||H(f,i),K(n)||_{\mathbb{R}^2}}{w}\right)^{2}$
+% \EndIf
+% \EndFor
+% \EndFor
+% \EndFor
+% \For{$n<N$}
+% \If{$\exists i \ s.t. \ S_n \cdot \chi_i > 0.5|R(n)|$}
+% \If{$\exists ! \ i$}
+% \State $i$ is the only candidate
+% \ElsIf{$\exists ! \ i \ s.t. \ S_n \cdot \chi_i > 0.8|R(n)|$}
+% \State $i$ is the only candidate
+% \Else \text{ }  There are multiple candidates
+% \EndIf
+% \Else \text{ } There are no candidates
+% \EndIf
+% \EndFor
+% \end{algorithmic}
+% \end{algorithm}
+\section{Conclusion (+Discussion?)}
+
+
+\section{Acknowledgments}
+
+
+% For BibTeX users:
+\bibliography{ISMIRtemplate}
+
+% For non BibTeX users:
+%\begin{thebibliography}{citations}
+% \bibitem{Author:17}
+% E.~Author and B.~Authour, ``The title of the conference paper,'' in {\em Proc.
+% of the Int. Society for Music Information Retrieval Conf.}, (Suzhou, China),
+% pp.~111--117, 2017.
+%
+% \bibitem{Someone:10}
+% A.~Someone, B.~Someone, and C.~Someone, ``The title of the journal paper,''
+%  {\em Journal of New Music Research}, vol.~A, pp.~111--222, September 2010.
+%
+% \bibitem{Person:20}
+% O.~Person, {\em Title of the Book}.
+% \newblock Montr\'{e}al, Canada: McGill-Queen's University Press, 2021.
+%
+% \bibitem{Person:09}
+% F.~Person and S.~Person, ``Title of a chapter this book,'' in {\em A Book
+% Containing Delightful Chapters} (A.~G. Editor, ed.), pp.~58--102, Tokyo,
+% Japan: The Publisher, 2009.
+%
+%\end{thebibliography}
+
+\end{document}
