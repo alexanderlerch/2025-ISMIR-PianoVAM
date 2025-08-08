@@ -98,7 +98,12 @@
 
 %The computational study of piano performance using multimodal datasets offers deep insights into musical artistry and technique. However, the laborious process of acquiring large-scale multimodal data remains a significant bottleneck, hindering further progress in this field.
 
-Piano performance is a multimodal activity, integrating acoustic output with the performer's complex physical actions and artistic interpretations. Despite growing research interest in analyzing the multimodal nature of piano performance, the laborious process of acquiring large-scale multimodal data remains a significant bottleneck, hindering further progress in this field. To overcome this barrier, we present an integrated web toolkit comprising two graphical user interfaces (GUIs): \begin{inparaenum}[(i)] \item PiaRec, which supports the synchronized acquisition of audio, video, MIDI, and performance metadata. \item ASDF, which enables the efficient annotation of performer fingering from the visual data. \end{inparaenum}Collectively, this system can streamline the acquisition of multimodal piano performance datasets.
+Piano performance is a multimodal activity, integrating acoustic output with the performer's complex physical actions and artistic interpretations\alex{why would the interpretations be integrated with the output and physical actions? The interpretations lead to those... Suggestion: that intrinsically combines physical actions with the acoustic rendition}. Despite growing research interest in analyzing the multimodal nature of piano performance, the laborious process of acquiring large-scale multimodal data remains a significant bottleneck, hindering progress in this field. To overcome this barrier, we present an integrated web toolkit comprising two Graphical User Interfaces (GUIs):
+\begin{inparaenum}[(i)]
+\item \textit{PiaRec}, which supports the synchronized acquisition of audio, video, MIDI, and performance metadata, and
+\item \textit{ASDF}, which enables the efficient annotation of performer fingering from the visual data. 
+\end{inparaenum}
+Collectively, these tools streamline the acquisition of multimodal piano performance datasets.
 
 %in the multimodal analysis of piano performance
 
@@ -125,12 +130,12 @@ Piano performance is a multimodal activity, integrating acoustic output with the
 
 %The computational study of piano performance as a multimodal activity offers deep insights into musical artistry and technique \cite{jensen2012multimodal, riley2005use, parmar2021piano}. Such research, particularly in fields like automatic music transcription and performance analysis, relies critically on synchronized multimodal datasets. However, existing acquisition methods require manual synchronization across multiple software tools and expert-level fingering annotation, creating significant barriers to large-scale dataset construction and broader research accessibility.
 
-The computational study of piano performance as a multimodal activity offers deep insights into musical artistry and technique \cite{jensen2012multimodal, riley2005use, parmar2021piano}, making multimodal piano datasets combining audio, video, MIDI and fingering annotations play a crucial role. However, existing acquisition methods often require manual synchronization across multiple software tools and expert-level fingering annotation, limiting dataset scales and research accessibility.
+The computational study of piano performance as a multimodal activity offers deep insights into musical artistry and technique \cite{jensen2012multimodal, riley2005use, parmar2021piano}. Thus, multimodal piano datasets combining audio, video, MIDI and fingering annotations play a crucial role for understanding piano performance. However, existing acquisition methods often require manual synchronization across multiple software tools and fingering annotation by experts, limiting dataset scale and accessibility.
 % crucial for automatic transcription and performance analysis research. 
 
-This difficulty is especially pronounced for fingering data. While fundamental to performance technique, the high degree of subjectivity in fingering makes it notoriously difficult to collect and analyze systematically \cite{swinkin2007keyboard}. To address these dataset acquisition and fingering annotation challenges, we introduce an integrated web toolkit, which consists of PiaRec and ASDF (a semi-Automated System for Detecting Fingering).\footnote{The source code will be released upon publication.} PiaRec automates the synchronized recording of multimodal data, while ASDF provides an efficient human-in-the-loop workflow to annotate fingering from the captured video.
+This challenge is especially prominent for fingering data. While fundamental to performance technique, the high degree of subjectivity in fingering makes it notoriously difficult to collect and analyze systematically\alex{I am a bit unclear why subjectivity makes it difficult to collect and analyze} \cite{swinkin2007keyboard}. To address these dataset acquisition and fingering annotation challenges, we introduce an integrated web toolkit, which consists of \textit{PiaRec} and \textit{ASDF} (semi-Automated System for Detecting Fingering).\footnote{The source code will be released upon publication.\alex{There needs to be a link in the camera-ready}} PiaRec automates the synchronized recording of multimodal data, while ASDF provides an efficient human-in-the-loop workflow to annotate fingering from the captured video.
 
-This paper introduces an integrated system aimed at simplifying the dataset acquisition pipeline. By addressing the challenges of manual data synchronization and fingering annotation, we anticipate our work can contribute to the creation of large-scale multimodal piano datasets and support the empirical research that relies upon them.
+This paper introduces an integrated framework aimed at simplifying the dataset acquisition pipeline. By addressing the challenges of  data synchronization and fingering annotation, we anticipate our work can contribute to the creation of large-scale multimodal piano datasets and support the empirical research that relies upon them.
 
 %This paper introduces the integrated system to streamline the dataset acquisition pipeline from recording to annotation. We anticipate that Our work will expedite not only the creation of large-scale multimodal piano datasets but also the empirical research that relies upon them.
 %We anticipate that by lowering these technical and logistical barriers, 
@@ -155,13 +160,20 @@ This paper introduces an integrated system aimed at simplifying the dataset acqu
 
 %PiaRec is a web-based system that automates synchronized recording of audio, MIDI, video, and metadata. Using QR codes for session control, it orchestrates Logic Pro, and OBS Studio through browser automation, eliminating manual synchronization errors while requiring only standard equipment (MIDI-equipped piano, camera, microphone).
 
-PiaRec is a system designed to automate the synchronized acquisition of piano performance data, including audio, video, MIDI, and metadata. It features a graphical user interface (GUI) built with Python and Streamlit, which leverages the PyAutoGUI library to directly control external software like Logic Pro and OBS Studio, thereby eliminating manual synchronization errors. Notably, its modular design ensures extensibility, allowing it to be flexibly adapted for use with other Digital Audio Workstations and video capture systems.
+PiaRec is a system designed to automate the synchronized acquisition of piano performance data, including audio, video, MIDI, and metadata. It features a Graphical User Interface (GUI) built with Python and Streamlit, which leverages the PyAutoGUI library to directly control external software like Logic Pro and OBS Studio, thereby eliminating manual synchronization errors. Notably, its modular design ensures extensibility, allowing it to be flexibly adapted for use with other Digital Audio Workstations and video capture systems.
 
 % Users must install Logic Pro and OBS Studio in their system in order to use PiaRec. %마우스 클릭 매크로 같은것도 더 자동화 할 수 있으면 자동화 해야 할듯 합니다. (창 비율 설정에 따라 달라질 수 있기 때문)
-\vspace{1.25mm}\text{}\\
-\textbf{Workflow and Key Features.}\quad The PiaRec is centered around a web dashboard and a QR code-based control system. A first-time user completes a one-time registration on the ``Registration'' tab to generate three QR codes: (i) a \emph{Profile} code for user identification, (ii) a \emph{Play} code to initiate recording, and (iii) a \emph{Stop} code to terminate it.
+%\vspace{1.25mm}\text{}\\
+%\textbf{Workflow and Key Features.}\quad 
+\subsection{Workflow and Key Features}
+PiaRec is centered around a web dashboard and a QR code-based control system. A first-time user completes a one-time registration on the ``Registration'' tab to generate three QR codes: 
+\begin{inparaenum}[(i)]
+\item a \emph{Profile} code for user identification, 
+\item a \emph{Play} code to initiate recording, and 
+\item a \emph{Stop} code to terminate it.
+\end{inparaenum}
 
-For each recording session, the user inputs performance-specific metadata (e.g., composer, piece title) on the ``Record'' tab. Subsequently, scanning the \emph{Profile} and \emph{Play} codes triggers the automated, simultaneous recording of all data streams across Logic Pro and OBS Studio. The session concludes upon scanning the \emph{Stop} code, which terminates the session and saves the raw files.
+For each recording session, the user inputs performance-specific metadata (e.g., composer, piece title) on the ``Record'' tab. Subsequently, scanning the \emph{Profile} and \emph{Play} codes triggers the automated, simultaneous recording of all data streams in both Logic Pro and OBS Studio. The session concludes upon scanning the \emph{Stop} code, which terminates the session and saves the raw files.
 
 Once the capture is complete, PiaRec performs its automated post-processing. It synchronizes the data streams by cross-correlating the audio from the different sources using the \texttt{numpy.correlate} function to find a precise time offset. This offset is used to trim the MIDI file, aligning it with the audio-visual data. Finally, all metadata is packaged with the synchronized files to create a well-structured data entry. %However, to ensure the highest precision, a final manual verification is recommended to identify potential MIDI jitter in the DAW for longer recordings.
 
@@ -186,25 +198,6 @@ Once the capture is complete, PiaRec performs its automated post-processing. It 
 %Sync details: 몇 ms 차이였는지 기억 안나는데 아마 한 프레임보단 작았던 것 같아요 10ms 정도였나?? 
 %Face blur 이야기는 생각해 보니까 PianoVAM 얘기라 굳이 여기 넣을 필요는 없을 것 같아요
 
-%Among the performers, one performer did not allowed the face reveal in the dataset. Hence \cite{pianovam} manually blurred the face region for the specfic performer, which is not contained in our UI.
-\section{ASDF: GUI for Fingering Annotation}
-% ASDF, which stands for ~~~ (Overview explanation)     <- 이걸 intro에 적긴 했는데 다시 한번 적는게 나을까요? (small 준형)
-ASDF (semi-Automatic System for Detecting Fingering) is a toolkit for efficient piano fingering annotation, implemented with the Streamlit framework. It provides an interactive annotation interface for the hybrid workflow proposed by Kim et al. \cite{kim2025pianovam}, combining automated fingering detection algorithm with an intuitive interface for human verification.
-\vspace{1.25mm}\\
-\textbf{Workflow and Interface Design}\quad
-%The ASDF interface guides the user through a three-stage workflow: %data preprocessing, automated candidate suggestion, and interactive manual annotation.
-\vspace{1.25mm}\\
-\textbf{1) Data Preprocessing:} A user begins by loading a performance video and its corresponding MIDI into the system. The first step The first step is spatial calibration of the keyboard area, performed via the ``Keyboard Detection'' tab. Here, the user defines the specific piano key locations within the video frame. This allows ASDF to map all 88 key regions and apply a heuristic correction for lens distortion by linear interpolation between keystones (see Figure \ref{fig:asdfkeyboard}). Next, the user initiates hand data extraction from the ``Generate Mediapipe Data'' tab. This backend process leverages the Mediapipe Hands \cite{arXiv20Zhang} and the floating hand detection algorithm from Kim et al. \cite{kim2025pianovam} to generate and save frame-wise skeleton data.\\
-\textbf{2) Automated Candidate Suggestion:} Once preprocessing is complete, the user triggers the automated fingering analysis from the ``Pre-labeling'' tab. With a single action, the GUI executes the Fingering Candidate Selection Algorithm from Kim et al. \cite{kim2025pianovam}, which is described in Algorithm \ref{alg:fingeringalgo}. This algorithm processes the resulting MIDI and hand skeleton data to assign a likelihood score to each finger for every note, generating a set of probable fingering candidates.\\
-\textbf{3) Interactive Annotation and Verification:} The core function of ASDF lies in its main ``Labeling'' tab, which is designed for efficient human-in-the-loop verification. This interface presents a synchronized, multi-panel view containing: \begin{inparaenum}[(i)] \item the performance video, \item a piano roll visualization of the MIDI notes, and \item a translucent overlay of the detected hand skeletons on the video. \end{inparaenum} Notes with a single, high-confidence candidate are pre-labeled, while notes with low confidence or multiple competing candidates are highlighted for manual review. A user can then click on any note in the piano roll to instantly navigate the video to that moment, visually verify the action, and assign or correct the fingering label with a simple input. This design significantly accelerates the annotation process by focusing human effort precisely where it is most needed.
-
-% 원본
-% \subsection{Interface}
-% \textbf{Video preprocessing:} Users can extract framewise hand skeleton from the top-view video in the \textit{Generate Mediapipe Data} tab. ASDF also determines whether each detected hand skeleton is considered a \textit{floating hand}, which means the hand is in mid-air so that the hand cannot play any notes. Information of hand skeleton and floating state are saved in .pkl format. \\ % 헐 짱이다
-% % Delete smart tempo 부분은 그냥 pre-finger labeling 코드 안에 집어넣고 삭제해도 될듯
-% \textbf{Finger candidate calculation:} In the \textit{Pre-finger labeling} tab, ASDF decides the finger candidate for each note by Algorithm \ref{alg:fingeringalgo}.\\ %Tempo information of MIDI file is overwrited to 120 bpm.
-% \textbf{Undecided fingering labeling:} Users can manually annotate the fingering number of undecided notes in the \textit{Label} tab.\\
-% \textbf{Keyboard area detection \& normalization:} In order to match the location of the finger and corresponding key area for the fingering number annotation, specifying the location of the keyboard and the lens distortion of frame image must take place before the fingering annotation. In the \textit{Keyboard area detection} tab, users should manually designate the area of keyboard by clicking four vertex of the keyboard. The lens distortion of camera is calculated heuristically using quadratic approximation. \\ % 이 문단은 UI가 수정될 거라 그 이후에 다시 적어야 될 것 같아요
 
 \begin{figure}
     \centering
@@ -214,9 +207,36 @@ ASDF (semi-Automatic System for Detecting Fingering) is a toolkit for efficient 
     \vspace{-5mm}
 \end{figure}
 
+%Among the performers, one performer did not allowed the face reveal in the dataset. Hence \cite{pianovam} manually blurred the face region for the specfic performer, which is not contained in our UI.
+\section{ASDF: GUI for Fingering Annotation}
+% ASDF, which stands for ~~~ (Overview explanation)     <- 이걸 intro에 적긴 했는데 다시 한번 적는게 나을까요? (small 준형)
+The semi-Automatic System for Detecting Fingering (ASDF) is a toolkit for efficient piano fingering annotation, implemented with the Streamlit framework. It provides an interactive annotation interface for the hybrid workflow proposed by Kim et al.~\cite{kim2025pianovam}, combining an automated fingering detection algorithm with an intuitive interface for human verification.
+%\vspace{1.25mm}\\
+%\textbf{Workflow and Interface Design}\quad
+%%The ASDF interface guides the user through a three-stage workflow: %data preprocessing, automated candidate suggestion, and interactive manual annotation.
+%\vspace{1.25mm}\\
+\subsection{Workflow and Interface Design}
+\textbf{Data Preprocessing:} A user begins by loading a performance video and its corresponding MIDI into the system. The first step is the spatial calibration of the keyboard area, performed via the ``Keyboard Detection'' tab. Here, the user defines the specific piano key locations within the video frame. This allows ASDF to map the 88 key regions and apply a heuristic correction for lens distortion by linear interpolation between keystones (see \figref{fig:asdfkeyboard}). Next, the user initiates hand data extraction from the ``Generate Mediapipe Data'' tab. This backend process leverages the Mediapipe Hands \cite{arXiv20Zhang} and the floating hand detection algorithm from Kim et al.~\cite{kim2025pianovam} to generate and save frame-wise skeleton data.\\
+\textbf{Automated Candidate Suggestion:} Once pre-processing is complete, the user triggers the automated fingering analysis from the ``Pre-labeling'' tab. With a single action, the GUI executes Kim et al.'s Fingering Candidate Selection Algorithm \cite{kim2025pianovam} described in Algorithm \ref{alg:fingeringalgo}. This algorithm processes the resulting MIDI and hand skeleton data to assign a likelihood score to each finger for every note, generating a set of probable fingering candidates.\\
+\textbf{Interactive Annotation and Verification:} The core function of ASDF lies in its main ``Labeling'' tab, which is designed for efficient human-in-the-loop verification. This interface presents a synchronized, multi-panel view containing: 
+\begin{inparaenum}[(i)] 
+\item the performance video, 
+\item a piano roll visualization of the MIDI notes, and 
+\item a translucent overlay of the detected hand skeletons on the video. 
+\end{inparaenum}
+ Notes with a single, high-confidence candidate are pre-labeled, while notes with low confidence or multiple competing candidates are highlighted for manual review. A user can then click on any note in the piano roll to instantly navigate the video to that moment, visually verify the action, and assign or correct the fingering label with a simple input. This design significantly accelerates the annotation process by focusing human effort precisely where it is most needed.
+
+% 원본
+% \subsection{Interface}
+% \textbf{Video preprocessing:} Users can extract framewise hand skeleton from the top-view video in the \textit{Generate Mediapipe Data} tab. ASDF also determines whether each detected hand skeleton is considered a \textit{floating hand}, which means the hand is in mid-air so that the hand cannot play any notes. Information of hand skeleton and floating state are saved in .pkl format. \\ % 헐 짱이다
+% % Delete smart tempo 부분은 그냥 pre-finger labeling 코드 안에 집어넣고 삭제해도 될듯
+% \textbf{Finger candidate calculation:} In the \textit{Pre-finger labeling} tab, ASDF decides the finger candidate for each note by Algorithm \ref{alg:fingeringalgo}.\\ %Tempo information of MIDI file is overwrited to 120 bpm.
+% \textbf{Undecided fingering labeling:} Users can manually annotate the fingering number of undecided notes in the \textit{Label} tab.\\
+% \textbf{Keyboard area detection \& normalization:} In order to match the location of the finger and corresponding key area for the fingering number annotation, specifying the location of the keyboard and the lens distortion of frame image must take place before the fingering annotation. In the \textit{Keyboard area detection} tab, users should manually designate the area of keyboard by clicking four vertex of the keyboard. The lens distortion of camera is calculated heuristically using quadratic approximation. \\ % 이 문단은 UI가 수정될 거라 그 이후에 다시 적어야 될 것 같아요
+
 % \subsection{Algorithm \& Hyperparameters}
 % Given top-view video and performance MIDI, ASDF decides the possible finger candidates for each note by Algorithm \ref{alg:fingeringalgo}, with floating hand information from the algorithm\cite{kim2025pianovam} based on hand skeleton detection via Mediapipe Hands\cite{arXiv20Zhang}. If there are no or multiple candidates, ASDF helps users to select the correct fingering on the label tab using visual assistance.
-\begin{algorithm}[h!]
+\begin{algorithm}[t]
 \caption{Fingering Candidate Selection Algorithm}\label{alg:fingeringalgo}
 \begin{algorithmic}
 \State $N = \text{Total number of notes}$
@@ -248,9 +268,10 @@ ASDF (semi-Automatic System for Detecting Fingering) is a toolkit for efficient 
 \EndFor
 \end{algorithmic}
 \end{algorithm}
-\vspace{-5mm}
+%\vspace{-10mm}
+
 \section{Conclusion}
-We presented PiaRec and ASDF, the web toolkits designed to lower the significant barriers to creating richly annotated, multimodal piano performance datasets. This integrated pipeline streamlines the entire workflow---from synchronized data acquisition to efficient fingering annotation---providing a foundation for data collection that can be expanded in future work.
+We presented PiaRec and ASDF, the web toolkits designed to lower the significant barriers to creating richly annotated, multimodal piano performance datasets. This integrated pipeline streamlines the entire workflow~---from synchronized data acquisition to efficient fingering annotation---~providing a foundation for data collection that can be expanded in future work.
 % 원본
 % We present PiaRec and ASDF, which both aid the users who want to utilize the piano performance into an audiovisual dataset with the corresponding fingering annotations. The requirements for using PiaRec and ASDF are only a digital piano, a camera with a top-view position, and an audio recorder. This leads to a shorter preparation step for acquiring an audiovisual piano dataset, which enables MIR researchers to collect an audiovisual piano dataset for their study with less effort.
 
